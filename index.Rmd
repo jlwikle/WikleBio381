@@ -4,11 +4,14 @@ author: "Jess Wikle"
 date: "1/22/2020"
 output: 
   html_document: 
-    theme: journal
+    theme: flatly
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Jess Wikle Bio381 Homework Page
+# Jess Wikle Bio381
+
+## Homework 1
+[Typora document](1_15_2019.html)
