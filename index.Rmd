@@ -13,4 +13,4 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ## Homework 1
-[homework 1 Typora document](1_15_2019.pdf)
+[homework 1 Typora document](homework1.html)
