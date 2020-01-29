@@ -4,7 +4,9 @@ author: "Jess Wikle"
 date: "1/22/2020"
 output: 
   html_document: 
-    theme: flatly
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}

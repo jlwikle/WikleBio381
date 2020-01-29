@@ -1,0 +1,103 @@
+---
+title: "Homework 3"
+author: "Jess Wikle"
+date: "1/29/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question 1: Transform into proper form for csv file:
+
+First String    Second      1.22      3.4
+Second          More Text   1.555555  2.2220
+Third           x           3         124 
+
+##### Find: `\s{2,}`
+##### Replace: `,`
+
+First String,Second,1.2,3.4  
+Second,More Text,1.55555,2.2220  
+Third,x,3,124  
+
+### Question 2: Rearrange list of names and universities
+
+Ballif, Bryan, University of Vermont  
+Ellison, Aaron, Harvard Forest  
+Record, Sydne, Bryn Mawr  
+
+##### Find: `(\w{6,}), (\w+), (\s*\w+.+)`
+##### Replace: `\2 \1 (\3)`
+
+Bryan Ballif (University of Vermont)  
+Aaron Ellison (Harvard Forest)  
+Sydne Record (Bryn Mawr)  
+
+### Question 3: Rearrange list of songs
+
+0001 Georgia Horseshoe.mp3 0002 Billy In The Lowground.mp3 0003 Cherokee Shuffle.mp3 0004 Walking Cane.mp3
+
+##### Find: `(\.\w{2}\d)`
+##### Replace: `\1\n`
+
+0001 Georgia Horseshoe.mp3  
+0002 Billy In The Lowground.mp3  
+0003 Cherokee Shuffle.mp3  
+0004 Walking Cane.mp3  
+
+### Question 4: Put four digit number at the end of the title
+
+##### Find: `(\d{4}\s)(.+\.)(.+)`
+##### Replace: `\2_\1\3`
+
+Georgia Horseshoe_0001.mp3  
+Billy In The Lowground_0002.mp3  
+Cherokee Shuffle_0003.mp3  
+Walking Cane_0004.mp3  
+
+### Question 5: Rearrange genus, species, and 2 numeric variables
+
+Camponotus,pennsylvanicus,10.2,44  
+Camponotus,herculeanus,10.5,3  
+Myrmica,punctiventris,12.2,4  
+Lasius,neoniger,3.3,55  
+
+##### Find: `(\w)\w+,(\w+),(\d+\.\d),(\d+)`  
+##### Replace: `\1_\2,\4`  
+
+C_pennsylvanicus,44  
+C_herculeanus,3  
+M_punctiventris,4  
+L_neoniger,55  
+
+### Question 6: Rearrange genus, species, and 2 numeric variables
+
+Camponotus,pennsylvanicus,10.2,44  
+Camponotus,herculeanus,10.5,3  
+Myrmica,punctiventris,12.2,4  
+Lasius,neoniger,3.3,55  
+
+##### Find: `(\w)\w+,(\w{4})\w+,(\d+\.\d),(\d+)`  
+##### Replace: `\1_\2,\4`  
+
+C_penn,44  
+C_herc,3  
+M_punc,4  
+L_neon,55  
+
+### Question 7: Rearrange genus, species, and 2 numeric variables
+
+Camponotus,pennsylvanicus,10.2,44  
+Camponotus,herculeanus,10.5,3  
+Myrmica,punctiventris,12.2,4  
+Lasius,neoniger,3.3,55  
+
+##### Find: `(\w{3})\w+,(\w{3})\w+,(\d+\.\d),(\d+)`  
+##### Replace: `\1\2, \4, \3`  
+
+Campen, 44, 10.2  
+Camher, 3, 10.5  
+Myrpun, 4, 12.2  
+Lasneo, 55, 3.3  
