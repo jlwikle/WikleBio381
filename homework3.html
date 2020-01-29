@@ -380,6 +380,7 @@ summary {
 <p>First String,Second,1.2,3.4<br />
 Second,More Text,1.55555,2.2220<br />
 Third,x,3,124</p>
+<p><em>My find phrase looks for two or more spaces, so that it won’t select the multiword terms with a single space in the middle. Each of the multiple spaces replaced with a single comma, to be properly set up to read as a .csv</em></p>
 </div>
 </div>
 <div id="question-2-rearrange-list-of-names-and-universities" class="section level3">
@@ -395,6 +396,7 @@ Record, Sydne, Bryn Mawr</p>
 <p>Bryan Ballif (University of Vermont)<br />
 Aaron Ellison (Harvard Forest)<br />
 Sydne Record (Bryn Mawr)</p>
+<p><em>Because all of these researchers have shorter first names than last names, I made the first term word characters comprising a word of 6 or more letters, to include all last names, followed by a comma. I selected their first names to be a string of letters of any length, followed by a comma. To encompass the university names I selected expressions with 0 or more spaces, followed by one or more letters, which gets the first word, then the “.+” signifies that anything that follows this word should be included. The replace term simply reorders these compontents and adds the parentheses.</em></p>
 </div>
 </div>
 <div id="question-3-rearrange-list-of-songs" class="section level3">
@@ -409,6 +411,7 @@ Sydne Record (Bryn Mawr)</p>
 0002 Billy In The Lowground.mp3<br />
 0003 Cherokee Shuffle.mp3<br />
 0004 Walking Cane.mp3</p>
+<p><em>My find term selects the .mp3 component, by searching for two letters followed by a number. I replaced this with an identical expression plus a line break to put each song on a different line.</em></p>
 </div>
 </div>
 <div id="question-4-put-four-digit-number-at-the-end-of-the-title" class="section level3">
@@ -422,6 +425,7 @@ Sydne Record (Bryn Mawr)</p>
 Billy In The Lowground_0002.mp3<br />
 Cherokee Shuffle_0003.mp3<br />
 Walking Cane_0004.mp3</p>
+<p><em>The first term looks for four digit numbers followed by a space, the second finds characters ending in a period, which is the song title, and the third is other characters. In replace, these are reordered, and the underscore added.</em></p>
 </div>
 </div>
 <div id="question-5-rearrange-genus-species-and-2-numeric-variables" class="section level3">
@@ -439,6 +443,7 @@ Lasius,neoniger,3.3,55</p>
 C_herculeanus,3<br />
 M_punctiventris,4<br />
 L_neoniger,55</p>
+<p><em>In order, the first find term is the first letter of the genus, followed by the remainder of this word, which doesn’t need parentheses because we won’t be using it later. The second term is the species name, the third selects the first number, by choosing any number with a decimal sign, while the fourth selects for any digits. In replace, these are reordered and the underscore added.</em></p>
 </div>
 </div>
 <div id="question-6-rearrange-genus-species-and-2-numeric-variables" class="section level3">
@@ -456,6 +461,7 @@ Lasius,neoniger,3.3,55</p>
 C_herc,3<br />
 M_punc,4<br />
 L_neon,55</p>
+<p><em>Similar to above, the first term will select and separate out the first letter of the genus. The second term now selects the first 4 letters of the species, and again the final number. These are reordered and underscore added.</em></p>
 </div>
 </div>
 <div id="question-7-rearrange-genus-species-and-2-numeric-variables" class="section level3">
@@ -473,6 +479,7 @@ Lasius,neoniger,3.3,55</p>
 Camher, 3, 10.5<br />
 Myrpun, 4, 12.2<br />
 Lasneo, 55, 3.3</p>
+<p><em>The first term now selects the first three letters of the genus, to be used later, and the second the first three letters of the species. As above, the two numerical terms are selected by whether or not there is a decimal place. They are then combined, reordered, with correct punctuation and spacing added in.</em> ```</p>
 </div>
 </div>
 

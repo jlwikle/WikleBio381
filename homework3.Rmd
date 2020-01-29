@@ -22,6 +22,10 @@ First String,Second,1.2,3.4
 Second,More Text,1.55555,2.2220  
 Third,x,3,124  
 
+
+*My find phrase looks for two or more spaces, so that it won't select the multiword terms with a single space in the middle. Each of the multiple spaces replaced with a single comma, to be properly set up to read as a .csv*
+
+
 ### Question 2: Rearrange list of names and universities
 
 Ballif, Bryan, University of Vermont  
@@ -35,6 +39,9 @@ Bryan Ballif (University of Vermont)
 Aaron Ellison (Harvard Forest)  
 Sydne Record (Bryn Mawr)  
 
+
+*Because all of these researchers have shorter first names than last names, I made the first term word characters comprising a word of 6 or more letters, to include all last names, followed by a comma. I selected their first names to be a string of letters of any length, followed by a comma. To encompass the university names I selected expressions with 0 or more spaces, followed by one or more letters, which gets the first word, then the ".+" signifies that anything that follows this word should be included. The replace term simply reorders these compontents and adds the parentheses.*
+
 ### Question 3: Rearrange list of songs
 
 0001 Georgia Horseshoe.mp3 0002 Billy In The Lowground.mp3 0003 Cherokee Shuffle.mp3 0004 Walking Cane.mp3
@@ -47,6 +54,9 @@ Sydne Record (Bryn Mawr)
 0003 Cherokee Shuffle.mp3  
 0004 Walking Cane.mp3  
 
+
+*My find term selects the .mp3 component, by searching for two letters followed by a number. I replaced this with an identical expression plus a line break to put each song on a different line.*
+
 ### Question 4: Put four digit number at the end of the title
 
 ##### Find: `(\d{4}\s)(.+\.)(.+)`
@@ -56,6 +66,9 @@ Georgia Horseshoe_0001.mp3
 Billy In The Lowground_0002.mp3  
 Cherokee Shuffle_0003.mp3  
 Walking Cane_0004.mp3  
+
+
+*The first term looks for four digit numbers followed by a space, the second finds characters ending in a period, which is the song title, and the third is other characters. In replace, these are reordered, and the underscore added.*
 
 ### Question 5: Rearrange genus, species, and 2 numeric variables
 
@@ -72,6 +85,9 @@ C_herculeanus,3
 M_punctiventris,4  
 L_neoniger,55  
 
+
+*In order, the first find term is the first letter of the genus, followed by the remainder of this word, which doesn't need parentheses because we won't be using it later. The second term is the species name, the third selects the first number, by choosing any number with a decimal sign, while the fourth selects for any digits. In replace, these are reordered and the underscore added.*
+
 ### Question 6: Rearrange genus, species, and 2 numeric variables
 
 Camponotus,pennsylvanicus,10.2,44  
@@ -87,6 +103,9 @@ C_herc,3
 M_punc,4  
 L_neon,55  
 
+
+*Similar to above, the first term will select and separate out the first letter of the genus. The second term now selects the first 4 letters of the species, and again the final number. These are reordered and underscore added.*
+
 ### Question 7: Rearrange genus, species, and 2 numeric variables
 
 Camponotus,pennsylvanicus,10.2,44  
@@ -101,3 +120,7 @@ Campen, 44, 10.2
 Camher, 3, 10.5  
 Myrpun, 4, 12.2  
 Lasneo, 55, 3.3  
+
+
+*The first term now selects the first three letters of the genus, to be used later, and the second the first three letters of the species. As above, the two numerical terms are selected by whether or not there is a decimal place. They are then combined, reordered, with correct punctuation and spacing added in.*
+```
