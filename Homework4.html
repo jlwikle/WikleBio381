@@ -396,19 +396,19 @@ print(z)</code></pre>
 <div id="using-the-rep-and-seq-functions-create-the-following-vectors" class="section level3">
 <h3>2. Using the rep and seq functions, create the following vectors:</h3>
 <ol style="list-style-type: lower-alpha">
-<li>(1,2,3,4,5,6,7,8,7,6,5,4,3,2,1)</li>
+<li>(1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1)</li>
 </ol>
 <pre class="r"><code>a &lt;- c(seq(1:8), seq(from = 7, to = 1))
 print(a)</code></pre>
 <pre><code>##  [1] 1 2 3 4 5 6 7 8 7 6 5 4 3 2 1</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>(1,2,2,3,3,3,4,4,4,4,5,5,5,5,5)</li>
+<li>(1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5)</li>
 </ol>
 <pre class="r"><code>b &lt;- rep.int(seq(1:5), times = c(1:5) )
 print(b)</code></pre>
 <pre><code>##  [1] 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
-<li>(5,4,4,3,3,3,2,2,2,2,1,1,1,1,1)</li>
+<li>(5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1)</li>
 </ol>
 <pre class="r"><code>c &lt;- rep.int(seq(from = 5, to = 1), times = c(1:5) )
 print(c)</code></pre>
@@ -419,13 +419,13 @@ print(c)</code></pre>
 <pre class="r"><code>v &lt;- runif(2)
 r &lt;- sqrt(v[1]^2 + v[2]^2)
 print(r)</code></pre>
-<pre><code>## [1] 0.9223468</code></pre>
+<pre><code>## [1] 0.8937085</code></pre>
 <pre class="r"><code>theta &lt;- atan(v[2]/v[1])
 print(theta)</code></pre>
-<pre><code>## [1] 0.4917687</code></pre>
+<pre><code>## [1] 1.488025</code></pre>
 <pre class="r"><code>polarcoord &lt;- c(r, theta)
 print(round(polarcoord, 3))</code></pre>
-<pre><code>## [1] 0.922 0.492</code></pre>
+<pre><code>## [1] 0.894 1.488</code></pre>
 </div>
 <div id="suppose-that-queue---csheep-fox-owl-ant-and-that-queue-represents-the-animals-that-are-lined-up-to-enter-noahs-ark-with-the-sheep-at-the-front-of-the-line.-using-r-expressions-update-the-queue-successively-as" class="section level3">
 <h3>4. Suppose that queue &lt;- c(“sheep”, “fox”, “owl”, “ant”) and that queue represents the animals that are lined up to enter Noah’s Ark, with the sheep at the front of the line. Using R expressions, update the queue successively as</h3>
