@@ -369,8 +369,8 @@ summary {
 </div>
 
 
-<div id="suppose-x-1.1-a-2.2-and-b-3.3.-assign-each-expression-to-the-value-of-the-variable-z-and-print-the-value-stored-in-z." class="section level2">
-<h2>1. Suppose x = 1.1, a = 2.2, and b = 3.3. Assign each expression to the value of the variable z and print the value stored in z.</h2>
+<div id="suppose-x-1.1-a-2.2-and-b-3.3.-assign-each-expression-to-the-value-of-the-variable-z-and-print-the-value-stored-in-z." class="section level3">
+<h3>1. Suppose x = 1.1, a = 2.2, and b = 3.3. Assign each expression to the value of the variable z and print the value stored in z.</h3>
 <pre class="r"><code>x &lt;- 1.1
 a &lt;- 2.2
 b &lt;- 3.3</code></pre>
@@ -393,8 +393,8 @@ print(z)</code></pre>
 print(z)</code></pre>
 <pre><code>## [1] 7.413</code></pre>
 </div>
-<div id="using-the-rep-and-seq-functions-create-the-following-vectors" class="section level2">
-<h2>2. Using the rep and seq functions, create the following vectors:</h2>
+<div id="using-the-rep-and-seq-functions-create-the-following-vectors" class="section level3">
+<h3>2. Using the rep and seq functions, create the following vectors:</h3>
 <ol style="list-style-type: lower-alpha">
 <li>(1,2,3,4,5,6,7,8,7,6,5,4,3,2,1)</li>
 </ol>
@@ -414,28 +414,41 @@ print(b)</code></pre>
 print(c)</code></pre>
 <pre><code>##  [1] 5 4 4 3 3 3 2 2 2 2 1 1 1 1 1</code></pre>
 </div>
-<div id="create-a-vector-of-two-random-uniform-numbers.-in-a-spatial-map-these-can-be-interpreted-as-x-and-y-coordinates-that-give-the-location-of-an-individual-such-as-a-marked-forest-tree-in-a-plot-that-has-been-mapped.-using-one-of-rs-inverse-trigonometry-functions-asin-acos-or-atan-convert-these-numbers-into-polar-coordinates-if-you-dont-know-what-polar-coordinates-are-read-about-them-on-the-web-or-in-your-calculus-textbook." class="section level2">
-<h2>3. Create a vector of two random uniform numbers. In a spatial map, these can be interpreted as x and y coordinates that give the location of an individual (such as a marked forest tree in a plot that has been mapped). Using one of R’s inverse trigonometry functions (asin(), acos(), or atan()), convert these numbers into polar coordinates (If you don’t know what polar coordinates are, read about them on the web or in your calculus textbook).</h2>
+<div id="create-a-vector-of-two-random-uniform-numbers.-in-a-spatial-map-these-can-be-interpreted-as-x-and-y-coordinates-that-give-the-location-of-an-individual-such-as-a-marked-forest-tree-in-a-plot-that-has-been-mapped.-using-one-of-rs-inverse-trigonometry-functions-asin-acos-or-atan-convert-these-numbers-into-polar-coordinates-if-you-dont-know-what-polar-coordinates-are-read-about-them-on-the-web-or-in-your-calculus-textbook." class="section level3">
+<h3>3. Create a vector of two random uniform numbers. In a spatial map, these can be interpreted as x and y coordinates that give the location of an individual (such as a marked forest tree in a plot that has been mapped). Using one of R’s inverse trigonometry functions (asin(), acos(), or atan()), convert these numbers into polar coordinates (If you don’t know what polar coordinates are, read about them on the web or in your calculus textbook).</h3>
 <pre class="r"><code>v &lt;- runif(2)
 r &lt;- sqrt(v[1]^2 + v[2]^2)
 print(r)</code></pre>
-<pre><code>## [1] 0.8508115</code></pre>
+<pre><code>## [1] 0.9223468</code></pre>
 <pre class="r"><code>theta &lt;- atan(v[2]/v[1])
 print(theta)</code></pre>
-<pre><code>## [1] 0.9555548</code></pre>
+<pre><code>## [1] 0.4917687</code></pre>
 <pre class="r"><code>polarcoord &lt;- c(r, theta)
 print(round(polarcoord, 3))</code></pre>
-<pre><code>## [1] 0.851 0.956</code></pre>
+<pre><code>## [1] 0.922 0.492</code></pre>
 </div>
-<div id="suppose-that-queue---csheep-fox-owl-ant-and-that-queue-represents-the-animals-that-are-lined-up-to-enter-noahs-ark-with-the-sheep-at-the-front-of-the-line.-using-r-expressions-update-the-queue-successively-as" class="section level2">
-<h2>4 Suppose that queue &lt;- c(“sheep”, “fox”, “owl”, “ant”) and that queue represents the animals that are lined up to enter Noah’s Ark, with the sheep at the front of the line. Using R expressions, update the queue successively as</h2>
-<p>the serpent arrives;<br />
-the sheep enters the ark;<br />
-the donkey arrives and talks his way to the front of the line;<br />
-the serpent gets impatient and leaves;<br />
-the owl gets bored and leaves;<br />
-the aphid arrives and the ant invites him to cut in line.<br />
-Finally, determine the position of the aphid in the line.</p>
+<div id="suppose-that-queue---csheep-fox-owl-ant-and-that-queue-represents-the-animals-that-are-lined-up-to-enter-noahs-ark-with-the-sheep-at-the-front-of-the-line.-using-r-expressions-update-the-queue-successively-as" class="section level3">
+<h3>4. Suppose that queue &lt;- c(“sheep”, “fox”, “owl”, “ant”) and that queue represents the animals that are lined up to enter Noah’s Ark, with the sheep at the front of the line. Using R expressions, update the queue successively as</h3>
+<div id="the-serpent-arrives" class="section level6">
+<h6>the serpent arrives;</h6>
+</div>
+<div id="the-sheep-enters-the-ark" class="section level6">
+<h6>the sheep enters the ark;</h6>
+</div>
+<div id="the-donkey-arrives-and-talks-his-way-to-the-front-of-the-line" class="section level6">
+<h6>the donkey arrives and talks his way to the front of the line;</h6>
+</div>
+<div id="the-serpent-gets-impatient-and-leaves" class="section level6">
+<h6>the serpent gets impatient and leaves;</h6>
+</div>
+<div id="the-owl-gets-bored-and-leaves" class="section level6">
+<h6>the owl gets bored and leaves;</h6>
+</div>
+<div id="the-aphid-arrives-and-the-ant-invites-him-to-cut-in-line." class="section level6">
+<h6>the aphid arrives and the ant invites him to cut in line.</h6>
+</div>
+<div id="finally-determine-the-position-of-the-aphid-in-the-line." class="section level6">
+<h6>Finally, determine the position of the aphid in the line.</h6>
 <pre class="r"><code>queue &lt;- c(&quot;sheep&quot;, &quot;fox&quot;, &quot;owl&quot;, &quot;ant&quot;)
 #the serpent arrives
 queue &lt;- c(queue, &quot;serpent&quot;)
@@ -464,6 +477,7 @@ print(queue)</code></pre>
 <pre class="r"><code>#determine the position of the aphid in the line
 which(queue == &quot;aphid&quot;)</code></pre>
 <pre><code>## [1] 3</code></pre>
+</div>
 </div>
 <div id="use-r-to-create-a-vector-of-all-of-the-integers-from-1-to-100-that-are-not-divisible-by-2-3-or-7." class="section level2">
 <h2>5. Use R to create a vector of all of the integers from 1 to 100 that are not divisible by 2, 3, or 7.</h2>
