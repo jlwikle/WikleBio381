@@ -1,0 +1,52 @@
+---
+title: "Markdown Practice"
+author: "Jess Wikle"
+date: "1/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### LaTex tricks
+
+$a + b$
+
+$$a + b$$
+
+$$\alpha + \beta$$
+
+$$S_a$$
+
+$$S_{a + b_{\alpha + \beta}}$$
+
+$$Z^{a + b}$$
+
+$$P(occurrence of species A) = Z_a$$
+
+$$P(\mbox{occurrence of species A}) = Z_a$$
+
+First line.  
+Second line.  
+Third line.  
+
+```
+plain text and nothing else
+$$\alpha + \beta$$
+```
+Use a single backtick for plain text `in a sentence.`
+
+The value of $\pi$  is `r pi`.
+
+
+
+```{r echo=TRUE, eval=FALSE}
+# use comments!
+runif(10)
+```
+
+```{bash}
+pwd
+```
+
+
