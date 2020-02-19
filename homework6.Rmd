@@ -112,6 +112,7 @@ pSpecial + statSpecial
 p1 + stat + stat2 + stat3 + stat4
 
 ```
+
 The normal distribution (red line) appears to fit my data best.
 
 ## 5. Using the best-fitting distribution, go back to the code and get the maximum likelihood parameters. Use those to simulate a new data set, with the same length as your original vector, and plot that in a histogram and add the probability density curve. Right below that, generate a fresh histogram plot of the original data, and also include the probability density curve.
