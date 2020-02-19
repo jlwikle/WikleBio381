@@ -1,0 +1,142 @@
+---
+title: "Homework 6"
+author: "Jess Wikle"
+date: "2/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Simulating and fitting data distributions
+
+##### Packages
+```{r}
+library(ggplot2) # for graphics
+library(MASS) # for maximum likelihood estimation
+```
+##### Read in data
+```{r}
+# read in data
+# this is data contains aboveground biomass in living trees, dead trees, and downed woody material in 198 plots at Second College Grant ASCC site, New Hampshire
+z <- read.table("my_data.csv",header=FALSE,sep=",", stringsAsFactors=FALSE)
+str(z)
+summary(z)
+names(z) <- list("ID","myVar")
+z <- z[z$myVar>0,]
+str(z)
+summary(z$myVar)
+
+
+```
+## 3. Run the code on my data
+```{r}
+# plot histogram of the data
+p1 <- ggplot(data=z, aes(x=myVar, y=..density..)) + # y = ..density.. rescales the y-axis of the histogram from counts to density, so that area under the histogram = 1
+  geom_histogram(color="grey60",fill="cornsilk",size=0.2) 
+print(p1)
+```
+
+#### Add empirical density curve
+This smooths out the shape of the histogram, but doesn't assume any particular probability distribution.
+```{r}
+p1 <-  p1 +  geom_density(linetype="dotted",size=0.75)
+print(p1)
+```
+
+#### Get maximum likelihood paramenters for normal distribution
+```{r}
+normPars <- fitdistr(z$myVar,"normal") # fits most likely normal distribution parameters to my data
+print(normPars)
+str(normPars) # list that includes mean, sd, variance-covariance, n, and loglikelihood
+normPars$estimate["mean"] # note structure of getting a named attribute
+```
+
+#### Plot normal probability density
+```{r}
+# mean and sd from above ML parameter estimation
+meanML <- normPars$estimate["mean"]
+sdML <- normPars$estimate["sd"]
+
+xval <- seq(0,max(z$myVar),len=length(z$myVar)) # sets x-value from 0 to the max of my variable, at length of my variable
+
+ stat <- stat_function(aes(x = xval, y = ..y..), fun = dnorm, colour="red", n = length(z$myVar), args = list(mean = meanML, sd = sdML)) # stat_function is a function within ggplot that makes it easy to superimpose a function on top of an existing plot
+# In this case, dnorm is our function, giving the probability density for the normal distribution
+ p1 + stat
+```
+
+#### Plot exponential probability density
+```{r}
+expoPars <- fitdistr(z$myVar,"exponential") # same as above fitdistr, but now with exponential distribution
+rateML <- expoPars$estimate["rate"] # pull ML rate out of list
+
+stat2 <- stat_function(aes(x = xval, y = ..y..), fun = dexp, colour="blue", n = length(z$myVar), args = list(rate=rateML)) # same as above, but now function is dexp for exponential distribution
+ p1 + stat + stat2
+```
+
+#### Uniform probability density
+```{r}
+# don't need to use fitdistr because ML parameters are just minimum and maximim of the data
+stat3 <- stat_function(aes(x = xval, y = ..y..), fun = dunif, colour="darkgreen", n = length(z$myVar), args = list(min=min(z$myVar), max=max(z$myVar)))
+ p1 + stat + stat2 + stat3
+```
+
+#### Gamma probability density
+```{r}
+gammaPars <- fitdistr(z$myVar,"gamma")
+shapeML <- gammaPars$estimate["shape"]
+rateML <- gammaPars$estimate["rate"]
+
+stat4 <- stat_function(aes(x = xval, y = ..y..), fun = dgamma, colour="brown", n = length(z$myVar), args = list(shape=shapeML, rate=rateML))
+ p1 + stat + stat2 + stat3 + stat4
+```
+
+#### Beta probability density
+This is on its own plot because the data need to be rescaled to 0 -1.
+```{r}
+pSpecial <- ggplot(data=z, aes(x=myVar/(max(myVar + 0.1)),  y=..density..)) + # this rescales data
+  geom_histogram(color="grey60",fill="cornsilk",size=0.2) + 
+  xlim(c(0,1)) +
+  geom_density(size=0.75,linetype="dotted")
+
+betaPars <- fitdistr(x=z$myVar/max(z$myVar + 0.1),start=list(shape1=1,shape2=2),"beta") # fits beta to scaled data
+shape1ML <- betaPars$estimate["shape1"] #extract components
+shape2ML <- betaPars$estimate["shape2"]
+
+statSpecial <- stat_function(aes(x = xval, y = ..y..), fun = dbeta, colour="orchid", n = length(z$myVar), args = list(shape1=shape1ML,shape2=shape2ML))
+pSpecial + statSpecial
+```
+
+## 4. Take a look at final graph and see which distribution fits the data best
+```{r}
+p1 + stat + stat2 + stat3 + stat4
+
+```
+The normal distribution (red line) appears to fit my data best.
+
+## 5. Using the best-fitting distribution, go back to the code and get the maximum likelihood parameters. Use those to simulate a new data set, with the same length as your original vector, and plot that in a histogram and add the probability density curve. Right below that, generate a fresh histogram plot of the original data, and also include the probability density curve.
+
+```{r}
+# simulate new dataset
+z2 <- rnorm(198, mean = meanML, sd = sdML)
+# add ID column
+Id <- c(1:198)
+# combine into dataframe
+z2 <- data.frame(z2, Id)
+# name columns
+names(z2) <- list("myVar","ID")
+# create histogram
+p2 <- ggplot(data=z2, aes(x=myVar, y=..density..)) +
+  geom_histogram(color="grey60",fill="cornsilk",size=0.2) 
+print(p2)
+# add probability density curve
+p2 <-  p2 +  geom_density(linetype="dotted",size=0.75)
+print(p2)
+library(patchwork)
+# look at both histograms side by side
+p1 + p2
+```
+
+##### How do the two histogram profiles compare? Do you think the model is doing a good job of simulating realistic data that match your original measurements? Why or why not?
+
+The are somewhat similar. The model simulated data with less variation than my data, but with more than I might have expected with a data simulation. I think it does a reasonable job of simulating realistic data, but my data isn't completely normally distributed, so the normally distributed simulation doesn't capture that.
