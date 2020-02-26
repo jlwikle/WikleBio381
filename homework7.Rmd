@@ -11,15 +11,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Creating Fake Data Sets to Explore Hypotheses
 
+
 ##### 1. Go back to your "thinking on paper" exercise, and decide on a pattern that you might expect in your experiment if a specific hypothesis were true
+
 
 I'm looking broadly at forest stand structure in an experiment designed to test strategies for forest climate change adaptation. For this assignment I'm looking at post-harvest aboveground biomass of trees and downed woody material in 3 treatments on a disturbance spectrum as well as an uncut control. 
 
+
 ##### 2. To start simply, assume that the data in each of your treatment groups follows a normal distribution. Specify the sample sizes, means, and variances for each group that would be reasonable if your hypothesis were true
+
 
 All treatments and control have 10 plots in 40 blocks, for 160 plots total. The resistance treatment was managed with a fairly uniform approach and the fewest trees removed. The resilience treatment was designed to be more heterogenous and have more trees removed, and the transition treatment introduced even more irregularity and the most trees removed. The means below are based off of means from data that have already been collected, and the standard deviations are a little bit more variable than the actual data, just for the purposes of experimentation.
 
+
 ##### 3. Using the methods we have covered in class, write code to create a random dataset that has these attributes. Organize these data into a dataframe with the appropriate structure
+
 
 ```{r}
 # all treatments have 40 plots
@@ -47,6 +53,7 @@ head(my_data)
 tail(my_data)
 ```
 ##### 4. Now write code to analyze the data. Write code to generate a useful plot of the data
+
 ```{r}
 # categorical x (treatment) and continuous y (biomass) indicates ANOVA
 
@@ -203,6 +210,7 @@ p1
 ```
 
 #### 6. Now begin adjusting the means of the different groups. Given the sample sizes you have chosen, how small can the differences between the groups be (the "effect size") for you to still detect a significant pattern (p < 0.05)
+
 ```{r}
 # Converging on mean of 155
 CT <- rnorm(40, mean = 170, sd = 15)
@@ -230,7 +238,9 @@ p1 <- ggplot(data = my_data, aes(x = treatment,
   theme_classic()
 p1 
 ```
+
 Still significant
+
 ```{r}
 # Converging on mean of 155
 CT <- rnorm(40, mean = 160, sd = 15)
@@ -258,7 +268,11 @@ p1 <- ggplot(data = my_data, aes(x = treatment,
   theme_classic()
 p1 
 ```
+
+
 Significant 5/30 times
+
+
 #### 7. Alternatively, for the effect sizes you originally hypothesized, what is the minimum sample size you would need in order to detect a statistically significant effect?
 ```{r}
 # drop down to sample size of 30
@@ -287,7 +301,10 @@ p1 <- ggplot(data = my_data, aes(x = treatment,
   theme_classic()
 p1 
 ```
+
+
 Significant 24/30 tries
+
 
 ```{r}
 # drop down to sample size of 20
@@ -316,7 +333,11 @@ p1 <- ggplot(data = my_data, aes(x = treatment,
   theme_classic()
 p1 
 ```
+
+
 Significant 14/30 tries
+
+
 ```{r}
 # drop down to sample size of 10
 CT <- rnorm(10, mean = 170, sd = 15)
