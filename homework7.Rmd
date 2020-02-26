@@ -1,0 +1,364 @@
+---
+title: "Homework 7"
+author: "Jess Wikle"
+date: "2/26/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Creating Fake Data Sets to Explore Hypotheses
+
+##### 1. Go back to your "thinking on paper" exercise, and decide on a pattern that you might expect in your experiment if a specific hypothesis were true
+
+I'm looking broadly at forest stand structure in an experiment designed to test strategies for forest climate change adaptation. For this assignment I'm looking at post-harvest aboveground biomass of trees and downed woody material in 3 treatments on a disturbance spectrum as well as an uncut control. 
+
+##### 2. To start simply, assume that the data in each of your treatment groups follows a normal distribution. Specify the sample sizes, means, and variances for each group that would be reasonable if your hypothesis were true
+
+All treatments and control have 10 plots in 40 blocks, for 160 plots total. The resistance treatment was managed with a fairly uniform approach and the fewest trees removed. The resilience treatment was designed to be more heterogenous and have more trees removed, and the transition treatment introduced even more irregularity and the most trees removed. The means below are based off of means from data that have already been collected, and the standard deviations are a little bit more variable than the actual data, just for the purposes of experimentation.
+
+##### 3. Using the methods we have covered in class, write code to create a random dataset that has these attributes. Organize these data into a dataframe with the appropriate structure
+
+```{r}
+# all treatments have 40 plots
+# control treatment has plot mean of 175 Mg/ha, minimal variability
+CT <- rnorm(40, mean = 175, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+# resistance treatment has lower mean, still low variability
+RT <- rnorm(40, mean = 160, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+# resilience treatment has lower mean, and higher variability
+RL <- rnorm(40, mean = 150, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+# transition has lowest biomass, and most variability
+TR <- rnorm(40, mean = 135, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:160)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+
+head(my_data)
+tail(my_data)
+```
+##### 4. Now write code to analyze the data. Write code to generate a useful plot of the data
+```{r}
+# categorical x (treatment) and continuous y (biomass) indicates ANOVA
+
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+library(ggplot2)
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+
+```
+
+##### 5. Try running your analysis multiple times to get a feeling for how variable the results are within the same parameters, but different sets of random numbers
+
+5 repetitions
+
+```{r echo=FALSE}
+CT <- rnorm(40, mean = 175, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(40, mean = 160, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(40, mean = 150, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(40, mean = 135, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:160)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+
+```
+```{r echo=FALSE}
+
+CT <- rnorm(40, mean = 175, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(40, mean = 160, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(40, mean = 150, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(40, mean = 135, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:160)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+```
+```{r echo=FALSE}
+
+CT <- rnorm(40, mean = 175, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(40, mean = 160, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(40, mean = 150, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(40, mean = 135, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:160)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+```
+```{r echo=FALSE}
+
+CT <- rnorm(40, mean = 175, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(40, mean = 160, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(40, mean = 150, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(40, mean = 135, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:160)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+```
+```{r echo=FALSE}
+
+CT <- rnorm(40, mean = 175, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(40, mean = 160, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(40, mean = 150, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(40, mean = 135, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:160)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+```
+
+#### 6. Now begin adjusting the means of the different groups. Given the sample sizes you have chosen, how small can the differences between the groups be (the "effect size") for you to still detect a significant pattern (p < 0.05)
+```{r}
+# Converging on mean of 155
+CT <- rnorm(40, mean = 170, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(40, mean = 155, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(40, mean = 155, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(40, mean = 140, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:160)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+```
+Still significant
+```{r}
+# Converging on mean of 155
+CT <- rnorm(40, mean = 160, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(40, mean = 155, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(40, mean = 155, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(40, mean = 150, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:160)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+```
+Significant 5/30 times
+#### 7. Alternatively, for the effect sizes you originally hypothesized, what is the minimum sample size you would need in order to detect a statistically significant effect?
+```{r}
+# drop down to sample size of 30
+CT <- rnorm(30, mean = 170, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(30, mean = 155, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(30, mean = 155, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(30, mean = 140, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:120)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+```
+Significant 24/30 tries
+
+```{r}
+# drop down to sample size of 20
+CT <- rnorm(20, mean = 170, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(20, mean = 155, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(20, mean = 155, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(20, mean = 140, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:80)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+```
+Significant 14/30 tries
+```{r}
+# drop down to sample size of 10
+CT <- rnorm(10, mean = 170, sd = 15)
+CT <- data.frame(CT, "CT")
+colnames(CT) <- c("agb_Mg", "treatment")
+RT <- rnorm(10, mean = 155, sd = 20)
+RT <- data.frame(RT, "RT")
+colnames(RT) <- c("agb_Mg", "treatment")
+RL <- rnorm(10, mean = 155, sd = 35)
+RL <- data.frame(RL, "RL")
+colnames(RL) <- c("agb_Mg", "treatment")
+TR <- rnorm(10, mean = 140, sd = 50)
+TR <- data.frame(TR, "TR")
+colnames(TR) <- c("agb_Mg", "treatment")
+id <- c(1:40)
+my_data <- rbind(CT, RT, RL, TR)
+my_data <- cbind(id, my_data)
+m1 <- aov(agb_Mg ~ treatment, data = my_data)
+summary(m1)
+
+p1 <- ggplot(data = my_data, aes(x = treatment, 
+                                        y = agb_Mg, 
+                                        fill = treatment)) +
+  geom_boxplot() + 
+  theme_classic()
+p1 
+```
+
+Significant only 6/30 times (still surprising for such a decrease in sample size!)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
