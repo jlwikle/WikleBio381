@@ -1,7 +1,7 @@
 ---
 title: "Bio381 Homework"
 author: "Jess Wikle"
-date: "2/19/2020"
+date: "2/26/2020"
 output: 
   html_document: 
   prettydoc::html_pretty:
