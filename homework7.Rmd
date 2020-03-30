@@ -57,7 +57,6 @@ tail(my_data)
 ```{r}
 # categorical x (treatment) and continuous y (biomass) indicates ANOVA
 
-m1 <- aov(agb_Mg ~ treatment, data = my_data)
 summary(m1)
 library(ggplot2)
 p1 <- ggplot(data = my_data, aes(x = treatment, 

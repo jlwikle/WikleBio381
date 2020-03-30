@@ -1,7 +1,7 @@
 ---
 title: "Bio381 Homework"
 author: "Jess Wikle"
-date: "3/4/2020"
+date: "Updated 3/30/2020"
 output: 
   html_document: 
   prettydoc::html_pretty:
@@ -38,3 +38,5 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Homework 8
 [Homework 8](homework8.html)
 
+## Homework 9
+[Homework 9](homework9.html)
