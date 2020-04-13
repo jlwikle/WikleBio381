@@ -1,0 +1,106 @@
+---
+title: "Homework 11"
+author: "Jess Wikle"
+date: "4/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Batch Processing
+Repeat the exercise from the Batch Processing Lecture (7th April), but do it using real data sets rather than purely simulated. Check with folks in your lab to see if there are multiple data sets available for analysis. Stick to simple data analyses and graphics, but try to set it up as a batch process that will work on multiple files and save summary results to a common file.
+```{r}
+# load packages
+library(TeachingDemos)
+library(DescTools)
+
+# set seed for repeatibility
+char2seed("aboveground biomass")
+
+
+```
+
+##### Function for diversity stats
+
+I have plot data for 50 plots, and I want to look at 2 measures of diameter distribution: Gini coefficient, for a measure of inequality of diameters, and coefficent of variation, to examine variability in tree size. I want to see how these two numbers compare side by side for each plot.
+
+```{r}
+# -------------------------------
+# FUNCTION dbh_div
+# description: calculate gini coefficient and CV of dbh
+# inputs: 2-column data frame (species, dbh)
+# outputs: Gini (dbh), CV (dbh)
+###################################
+dbh_div <- function(d = NULL){
+if(is.null(d)){
+  a <- 1:15
+  b <- rep(c("A", "B", "C"), 5)
+  c <- runif(15) * 10
+  d <- data.frame(a, b, c)
+}
+  g <- round(Gini(d[,3]),3)
+  sa <- round((sd(d[,3])/mean(d[,3]) * 100), 2)
+  stats_list <- list(Gini_dbh = g,
+                     CV_dbh = sa)
+
+return(stats_list)
+
+} # end of dbh_div
+#--------------------------------
+# dbh_div()
+
+
+##########################################################
+# Global variables
+file_folder <- "biomassfiles/"
+file_out <- "StatsSummary.csv"
+file_names <- list.files(path = file_folder)
+##########################################################
+
+# Create a data frame to hold summary file statistics
+ID <- seq_along(file_names)
+file_name <- file_names
+Gini_dbh <- rep(NA, length(file_names))
+CV_dbh <- rep(NA, length(file_names))
+
+stats_out <- data.frame(ID, file_name, Gini_dbh, CV_dbh)
+
+```
+
+##### Batch Processing Step
+
+```{r}
+# batch process by looping through individual files
+
+for(i in seq_along(file_names)){
+  data <- read.csv(file = paste(file_folder, file_name[i], sep = ""),
+                     sep = ",", header = TRUE)
+ data <-  data[complete.cases(data),]
+  . <- dbh_div(data) # pull out stats
+  stats_out[i,3:4] <- unlist(.) #output is list, this puts them in each col
+}
+
+# set up output file and incorporate time stamp and minimal metadata
+
+write.table(cat("# Summary stats for", 
+                "batch processing of dbh diversity statistics",
+                "\n", 
+                "# timestamp: ", as.character(Sys.time()),
+                "\n", 
+                file = file_out,
+                row.names = "",
+                col.names = "",
+                sep = ""))
+
+# now add the data frame
+write.table(x = stats_out,
+            file = file_out,
+            row.names = FALSE,
+            col.names = TRUE,
+            sep = ",",
+            append = TRUE)
+
+print(stats_out)
+```
+
