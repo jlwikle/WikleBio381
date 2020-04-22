@@ -1,0 +1,217 @@
+---
+title: "Homework 12"
+author: "Jess Wikle"
+date: "4/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# packages
+library(ggplot2)
+library(ggthemes)
+library(wesanderson)
+library(patchwork)
+```
+
+## Advanced ggplotting
+
+For this exerise, use your newly-developed ggplot chops to create some nice graphs from your own data (If you do not have a good data frame to use for graphics, use one of the many built-in data frames from R (other than mpg, which we are using in class)). Experiment with different themes, theme base sizes, aesthetics, mappings, and faceting. When you are finished, try exporting them to high quality pdfs, jpgs, eps files, or other formats that you would use for submission to a journal.
+
+#### Categorical data exploration
+```{r}
+library(ggplot2)
+library(ggthemes)
+library(wesanderson)
+
+data <- read.csv("cwmforplot.csv")
+head(data)
+
+# I want both of these columns to be in specific, non-alphabetical order
+data$year2 <- factor(data$year, levels = c("preharvest", "postharvest"))
+data$treat2 <- factor(data$treat, levels = c("Control", "Resistance", "Resilience", "Transition"))
+
+# set background
+theme_set(theme_classic())
+
+# boxplot of volume of coarse woody material in four treatments, pre and post-treatment, grayscale(ish)
+
+p1 <- ggplot(data, aes(x = treat2, y = m3ha, fill = year2)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("ivory3", "ivory4")) +
+  ylim(0, 150) + # make y axis reasonable size, even though it hides major outliers
+  labs(title = "Volume of Downed Woody Material in Four Silvicultural Treatments",
+       subtitle = "greyscale boxplot",
+       x = "Treatment",
+       y = "Volume (cubic meters per hectare)") +
+  theme(legend.title = element_blank())
+print(p1)
+
+# with color
+p1 <- ggplot(data, aes(x = treat2, y = m3ha, fill = year2)) +
+  geom_boxplot() +
+  scale_fill_manual(values = wes_palette("GrandBudapest1", 2)) +
+  ylim(0, 150) +
+   labs(title = "Volume of Downed Woody Material in Four Silvicultural Treatments",
+       subtitle = "color boxplot",
+       x = "Treatment",
+       y = "Volume (cubic meters per hectare)") +
+  theme(legend.title = element_blank())
+print(p1)
+
+# with color and points
+p1 <- ggplot(data, aes(x = treat2, y = m3ha, 
+                       fill = year2, color = year2)) +
+  geom_boxplot() +
+  scale_fill_manual(values = wes_palette("GrandBudapest1", 2)) +
+  geom_point(position = position_jitter(width = 0.1, height = 0.7),
+              size = 2, alpha = 0.6) +
+  scale_color_manual(values = c("goldenrod", "firebrick")) +
+  ylim(0, 150) +
+   labs(title = "Volume of Downed Woody Material in Four Silvicultural Treatments",
+       subtitle = "boxplot with color and points",
+       x = "Treatment",
+       y = "Volume (cubic meters per hectare)") +
+  theme(legend.title = element_blank())
+print(p1)
+
+# Edward Tufte-style boxplot (minimal and aesthetically pleasing)
+# haven't figured out how to do include split for pre-post treatment
+
+theme_set(theme_tufte())
+p1 <- ggplot(data, aes(x = treat2, y = m3ha)) +
+  geom_tufteboxplot() +
+  ylim(0, 150) +
+   labs(title = "Volume of Downed Woody Material in Four Silvicultural Treatments",
+       subtitle = "tufte boxplot",
+       x = "Treatment",
+       y = "Volume (cubic meters per hectare)") +
+  theme(legend.title = element_blank())
+print(p1)
+  
+# can facet to make up for inability to split
+p1 <- ggplot(data, aes(x = year2, y = m3ha)) +
+  geom_tufteboxplot() +
+  ylim(0, 150) +
+   labs(title = "Volume of Downed Woody Material in Four Silvicultural Treatments",
+       subtitle = "tufte boxplot",
+       x = "Time",
+       y = "Volume (cubic meters per hectare)") +
+  facet_grid(.~treat2)
+print(p1)
+
+```
+
+#### Continuous data exploration
+```{r}
+data <- read.csv("dsiforplot1.csv")
+head(data)
+
+
+# Disturbance severity index (DSI) is predictor variable
+# Response is proportion of regeneration that consists of 
+# sugar maple(shade tolerant, less disurbance tolerant)
+# yellow birch (thrives in disturbance)
+
+p1 <- ggplot(data, aes(x = DSI, y = proportion, color = species))
+p1 + geom_smooth(method = 'lm')
+
+# minus error bands
+p1 + geom_smooth(method = 'lm', se = FALSE)
+
+# plus economist theme
+p1 + geom_smooth(method = 'lm', se = FALSE) +
+  labs(title = "Proportion of Regeneration that is Sugar Maple and Yellow Birch\n as Predicted by Disturbance Severity") +
+  theme_economist_white()
+
+# plus better color scheme
+p1 + geom_smooth(method = 'lm', se = FALSE) +
+  labs(title = "Proportion of Regeneration that is Sugar Maple and Yellow Birch\n as Predicted by Disturbance Severity") +
+  scale_color_economist() +
+  theme_economist()
+
+# plus wsj theme 
+p1 + geom_smooth(method = 'lm', se = FALSE) +
+  scale_color_wsj() +
+  labs(title = "Proportion of Regeneration that is Sugar Maple and Yellow Birch\n as Predicted by Disturbance Severity") +
+  theme_wsj()
+# (odd that it removes axis labels...). I guess that's the theme though
+p1 + geom_smooth(method = 'lm', se = FALSE) +
+  labs(title = "Proportion of Regeneration that is Sugar Maple and Yellow Birch\n as Predicted by Disturbance Severity") +
+  labs(x = "DSI", y = "proportion") +
+  scale_color_wsj() +
+  theme_wsj()
+
+# Tufte theme
+p1 + geom_smooth(method = 'lm', se = FALSE) +
+  scale_color_manual(values = c("grey30", "grey60")) +
+  labs(title = "Proportion of Regeneration that is Sugar Maple and Yellow Birch\n as Predicted by Disturbance Severity") +
+  theme_tufte()
+
+# solarized theme
+p1 + geom_smooth(method = 'lm', se = FALSE) +
+  labs(title = "Proportion of Regeneration that is Sugar Maple and Yellow Birch\n as Predicted by Disturbance Severity") +
+  scale_color_solarized() +
+  theme_solarized()
+```
+
+#### Non-theme changes
+```{r}
+data <- read.csv("/Users/jessicawikle/Desktop/R/ASCC/biomasstreatment.csv", header = T)
+
+for(i in 1:nrow(data)){
+  if(data$year[i] == "2017"){
+    data$timing[i] <- "preharvest"
+  }else data$timing[i] <- "postharvest"
+}
+data$timefac <- factor(data$timing, levels = c("preharvest", "postharvest"))
+data$compfac <- factor(data$Component, levels = c("CWM", "Snags", "Stumps", "LiveTrees"))
+data$treatmentfac <- factor(data$Treatment, levels = c("Control", "Resistance", "Resilience", "Transition"))
+
+cols <- c("LiveTrees" = 'darkgreen',
+          "Stumps" = 'goldenrod1',
+          "Snags" = 'coral4',
+          "CWM" = 'dodgerblue')
+
+p1 <- ggplot(data, aes(x = timefac, y = Biomass))
+
+p1 + geom_bar(stat = 'summary', 
+              fun.y = 'sum',
+             colour = 'black', 
+             size = 1, 
+             width = 0.7) +
+  geom_bar(stat = 'identity', 
+              aes(fill = compfac),
+           width = 0.7)+
+  labs(x = "Time",
+       y = "Biomass (Mg/ha)",
+       fill = "Component") +
+  facet_grid(~treatmentfac) + 
+  scale_fill_manual(values = cols) +
+  theme(aspect.ratio = 3) +
+  theme_classic()
+```
+
+#### Exporting figures
+```{r}
+data <- read.csv("dsiforplot1.csv")
+head(data)
+
+p1 <- ggplot(data, aes(x = DSI, y = proportion, color = species)) + geom_smooth(method = 'lm', se = FALSE) +
+  scale_color_manual(values = c("grey30", "grey60")) +
+  labs(title = "Proportion of Regeneration that is Sugar Maple and Yellow Birch\n as Predicted by Disturbance Severity") +
+  theme_tufte()
+
+ggsave(filename = "testplot.pdf", plot = p1, device = "pdf",
+       width = 11, height = 8.5, units = "in")
+
+ggsave(filename = "testplot.jpg", plot = p1, device = "jpg",
+       width = 6, height = 4, units = "in")
+
+ 
+```
+
+
